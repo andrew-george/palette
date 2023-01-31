@@ -1,81 +1,66 @@
 import { TinyColor } from '@ctrl/tinycolor'
-import Button from '@mui/material/Button'
-import Stack from '@mui/material/Stack'
-import { Playfair_Display } from '@next/font/google'
 import Head from 'next/head'
-import React, { useContext, useState } from 'react'
-import { HexColorInput, HexColorPicker } from 'react-colorful'
-import { BiColorFill } from 'react-icons/bi'
-import { FaPalette, FaRandom } from 'react-icons/fa'
-import { HiOutlineColorSwatch } from 'react-icons/hi'
-import Tooltip from '../components/ui/Tooltip'
-import { CurrentColorContext, ModeContext } from './_app'
-
-const playfair = Playfair_Display({
-	subsets: ['latin'],
-	weight: '600',
-})
+import React, { useContext, useEffect, useState } from 'react'
+import { HexAlphaColorPicker, HexColorInput } from 'react-colorful'
+import {
+	Actions,
+	ActionToggles,
+	ColorFormats,
+	ColorInput,
+	GenerateRandom,
+	Logo,
+	Schemes,
+} from '../components'
+import { getColorName } from '../utils'
+import { ActionTogglesContext, CurrentColorContext } from './_app'
 
 function Home() {
-	const { currentMode, setCurrentMode } = useContext(ModeContext)
 	const { currentColor, setCurrentColor } = useContext(CurrentColorContext)
+	const { activeActions } = useContext(ActionTogglesContext)
+
+	const [colorName, setColorName] = useState('')
+	const [textColor, setTextColor] = useState('#000')
 
 	const color = new TinyColor(currentColor)
-	const colorIsDark = color.getLuminance() < 0.2
+	const colorIsDark = color.getLuminance() < 0.1
+	const colorIsTransparent = color.getAlpha() < 0.5
 
-	const textColor = colorIsDark ? '#eee' : '#000'
+	const shadowStyle = {
+		boxShadow: `40px 40px 80px 0px ${colorIsDark ? '#ffffff06' : '#00000044'}`,
+	}
+
+	useEffect(() => {
+		if (colorIsTransparent) setTextColor('#000')
+		else if (colorIsDark) setTextColor('#eee')
+		else setTextColor('#000')
+
+		const timer = setTimeout(async () => {
+			const colorName = await getColorName(currentColor)
+			setColorName(colorName)
+		}, 50)
+		return () => clearTimeout(timer)
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [currentColor])
 
 	return (
 		<>
 			<Head>
 				<title>Palette.</title>
-				<link rel='icon' href='./favicon.svg' style={{ color: '#fff' }} />
+				<link rel='icon' href='./favicon.svg' />
 			</Head>
-			<div
-				style={{
-					height: '100vh',
-					backgroundColor: currentColor,
-					color: textColor,
-				}}
-			>
-				<header className={`header container`}>
-					<h1 className={playfair.className}>
-						<span>
-							<FaPalette />
-						</span>
-						Palette.
-					</h1>
-					<Stack direction='row' spacing={1}>
-						<Button variant='text' color='inherit' onClick={() => setCurrentMode('color')}>
-							Colors
-						</Button>
-						<Button variant='text' color='inherit' onClick={() => setCurrentMode('scheme')}>
-							Schemes
-						</Button>
-					</Stack>
-				</header>
-				<main>
-					<HexColorPicker color={currentColor} onChange={setCurrentColor} />
-					<HexColorInput
-						color={currentColor}
-						onChange={setCurrentColor}
-						prefixed
-						className='color-input'
-						style={{ color: currentColor, backgroundColor: textColor }}
-					/>
-					<Stack spacing={4} direction='row'>
-						<Tooltip title='Shades'>
-							<HiOutlineColorSwatch style={{ color: textColor }} />
-						</Tooltip>
-						<Tooltip title='Hues'>
-							<BiColorFill style={{ color: textColor }} />
-						</Tooltip>
-						<Tooltip title='Random'>
-							<FaRandom style={{ color: textColor }} />
-						</Tooltip>
-					</Stack>
-				</main>
-			</div>
+			<main style={{ color: textColor, backgroundColor: currentColor }}>
+				<Logo />
+				<GenerateRandom textColor={textColor} />
+				<HexAlphaColorPicker color={currentColor} onChange={setCurrentColor} />
+				<ColorInput color={color} textColor={textColor} />
+				<h1 className='color-name'>{colorName}</h1>
+				<ColorFormats />
+				<ActionToggles textColor={textColor} />
+				{(activeActions.shades || activeActions.tints || activeActions.saturation) && (
+					<Actions shadowStyle={shadowStyle} />
+				)}
+				{activeActions.schemes && <Schemes shadowStyle={shadowStyle} />}
+			</main>
 		</>
 	)
 }

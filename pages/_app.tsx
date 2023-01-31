@@ -1,27 +1,31 @@
-import { Inter } from '@next/font/google'
+import { JetBrains_Mono } from '@next/font/google'
 import type { AppProps } from 'next/app'
 import React, { createContext, useState } from 'react'
 import '../styles/globals.css'
-import '../styles/homepage.css'
 
-const inter = Inter({
+const jetBrains = JetBrains_Mono({
 	subsets: ['latin'],
 })
 
-export const ModeContext = createContext(null)
 export const CurrentColorContext = createContext(null)
+export const ActionTogglesContext = createContext(null)
 
 export default function App({ Component, pageProps }: AppProps) {
-	const [currentMode, setCurrentMode] = useState('color')
 	const [currentColor, setCurrentColor] = useState('#010c18')
+	const [activeActions, setActiveActions] = useState({
+		shades: false,
+		tints: false,
+		saturation: false,
+		schemes: false,
+	})
 
 	return (
 		<CurrentColorContext.Provider value={{ currentColor, setCurrentColor }}>
-			<ModeContext.Provider value={{ currentMode, setCurrentMode }}>
-				<div className={inter.className}>
+			<ActionTogglesContext.Provider value={{ activeActions, setActiveActions }}>
+				<div className={`${jetBrains.className}`}>
 					<Component {...pageProps} />
 				</div>
-			</ModeContext.Provider>
+			</ActionTogglesContext.Provider>
 		</CurrentColorContext.Provider>
 	)
 }

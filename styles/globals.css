@@ -1,7 +1,4 @@
-:root {
-	--border-radius: 10px;
-}
-
+/* - RESETS - */
 * {
 	box-sizing: border-box;
 	padding: 0;
@@ -23,15 +20,161 @@ li {
 	list-style: none;
 }
 
+/* - GLOBAL CLASSES - */
 .container {
 	width: 90vw;
 	margin: 0 auto;
 }
 
+/* - HOMEPAGE - */
 .MuiTooltip-tooltipArrow {
 	background-color: #000;
 }
 
 .MuiTooltip-arrow {
 	color: #000;
+}
+
+main {
+	height: auto;
+	min-height: 100vh;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.logo {
+	display: flex;
+	align-self: center;
+	font-size: 4rem;
+	margin: 3rem 0;
+	text-shadow: 50px 30px 60px #00000044;
+}
+
+.logo svg {
+	font-size: 3rem;
+	margin-right: 20px;
+	text-shadow: 50px 30px 60px #00000044;
+}
+
+.react-colorful {
+	min-width: 350px !important;
+	min-height: 300px !important;
+	margin: 3rem 0;
+	box-shadow: 50px 30px 60px #00000044;
+}
+
+.color-input-container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-bottom: 3rem;
+}
+
+.color-input-field {
+	display: block;
+	box-sizing: border-box;
+	padding: 0.5rem;
+	border: none;
+	border-radius: 5px;
+	outline: none;
+	font: inherit;
+	text-align: center;
+	box-shadow: 50px 30px 60px #00000044;
+}
+
+.copy-btn {
+	font-size: 1.1rem;
+	transition: all 0.1s ease-in-out;
+	cursor: pointer;
+	opacity: 0.7;
+	margin-left: 10px;
+}
+
+.copy-btn:hover {
+	opacity: 1;
+}
+
+.color-name {
+	margin-bottom: 3rem;
+	text-shadow: 50px 30px 60px #00000044;
+}
+
+.color-formats {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-evenly;
+}
+
+.format {
+	display: flex;
+	width: 500px;
+	margin-bottom: 3rem;
+	flex-direction: column;
+	align-items: center;
+	text-shadow: 50px 30px 60px #00000044;
+}
+
+.format-title {
+	display: flex;
+	align-items: center;
+}
+
+.action-toggles {
+	margin-bottom: 3rem;
+}
+
+.strips-container {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-evenly;
+	align-items: center;
+	margin-bottom: 6rem;
+	min-height: 700px;
+}
+
+.action {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin-bottom: 3rem;
+}
+
+.action h2 {
+	margin-bottom: 3rem;
+	text-shadow: 50px 30px 60px #00000044;
+}
+
+.strip-unit {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 500px;
+	height: 50px;
+	transition: all 0.2s ease-in-out;
+	cursor: pointer;
+	position: relative;
+}
+
+.strip-unit:hover {
+	height: 100px;
+}
+
+.strip-unit-content {
+	width: 100%;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.schemes {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	min-height: 1100px;
+}
+
+.schemes h1 {
+	margin-bottom: 3rem;
 }

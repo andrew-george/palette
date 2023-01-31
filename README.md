@@ -9,3 +9,7 @@ https://tinycolor.vercel.app/docs/
 ## Material UI
 
 https://mui.com/material-ui/getting-started/overview/
+
+## The Color API
+
+https://www.thecolorapi.com/docs
