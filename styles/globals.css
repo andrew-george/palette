@@ -108,7 +108,8 @@ main {
 
 .format {
 	display: flex;
-	width: 500px;
+	width: 350px;
+	max-width: 500px;
 	margin-bottom: 3rem;
 	flex-direction: column;
 	align-items: center;
@@ -149,7 +150,8 @@ main {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	width: 500px;
+	width: 350px;
+	max-width: 500px;
 	height: 50px;
 	transition: all 0.2s ease-in-out;
 	cursor: pointer;

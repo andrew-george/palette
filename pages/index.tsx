@@ -2,15 +2,7 @@ import { TinyColor } from '@ctrl/tinycolor'
 import Head from 'next/head'
 import React, { useContext, useEffect, useState } from 'react'
 import { HexAlphaColorPicker, HexColorInput } from 'react-colorful'
-import {
-	Actions,
-	ActionToggles,
-	ColorFormats,
-	ColorInput,
-	GenerateRandom,
-	Logo,
-	Schemes,
-} from '../components'
+import { Actions, ActionToggles, ColorFormats, ColorInput, GenerateRandom, Logo, Schemes } from '../components'
 import { getColorName } from '../utils'
 import { ActionTogglesContext, CurrentColorContext } from './_app'
 
